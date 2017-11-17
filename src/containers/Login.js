@@ -18,6 +18,7 @@ class Login extends Component {
     login(response);
   }
 
+
   render() {
     return (
       <div className="Login">
@@ -26,7 +27,7 @@ class Login extends Component {
         <h3 className="Welcome">Login to connect with people at Facebook events...</h3>
       </div>
         <FacebookLogin
-          appId="1551739381550538"
+          appId="1653318524689223"
           autoLoad={false}
           fields="name,email,picture.type(large)"
           scope="public_profile,email,user_events"

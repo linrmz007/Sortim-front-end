@@ -9,6 +9,7 @@
     "moment": "^2.18.1",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
+    "react-alert": "^2.4.0",
     "react-dom": "^15.6.1",
     "react-facebook-login": "^3.6.2",
     "react-redux": "^5.0.6",

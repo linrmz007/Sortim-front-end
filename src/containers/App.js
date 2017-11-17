@@ -17,9 +17,7 @@ const LoginRoute = (props) => {
   return (
     <Route {...rest} render={ (props) => {
       return ( rest.authObj === null
-        ? (
-          <Component {...rest} />
-        )
+        ? ( <Component {...rest} /> )
         : (
           <Redirect to={{
             pathname: '/events',

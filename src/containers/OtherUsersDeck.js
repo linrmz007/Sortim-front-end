@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Swing from 'react-swing';
 import { Direction } from 'swing';
-
 import { connect } from 'react-redux';
 import { addOtherUsers } from '../actions';
 import { getOtherUsers } from '../Service';
@@ -29,6 +28,7 @@ class OtherUsersDeck extends Component {
   cardThrown = async (e) => {
     if(e.throwDirection === Direction.RIGHT){
       const eventId = this.props.computedMatch.params.eventId;
+      console.log(eventId);
       const data = {
         eventId: eventId,
         emails: {
@@ -47,7 +47,6 @@ class OtherUsersDeck extends Component {
   render() {
     this.rendered++
     const data = this.props.otherUsers;
-    console.log(data);
     return (
         <Swing
           className="stack"
