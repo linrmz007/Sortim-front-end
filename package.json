@@ -10,6 +10,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-alert": "^2.4.0",
+    "react-chat-widget": "^2.1.2",
     "react-dom": "^15.6.1",
     "react-facebook-login": "^3.6.2",
     "react-redux": "^5.0.6",

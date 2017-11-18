@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import { connect } from 'react-redux';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import NavBar from './NavBar';
 import Login from './Login';
 import EventList from './EventList';
 import OtherUsersDeck from './OtherUsersDeck';
-
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 const LoginRoute = (props) => {

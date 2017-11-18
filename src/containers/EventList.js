@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { addEvents } from '../actions';
 import Event from '../components/Event.js';
 import { saveEvents } from '../Service';
-import AlertContainer from 'react-alert';
 import { logOut } from '../actions';
+import { Widget, addResponseMessage } from 'react-chat-widget';
+
 
 
 class EventList extends Component {
@@ -13,12 +14,20 @@ class EventList extends Component {
     this.fetchEvents()
   }
 
-  //fix it on the server side
-  // check time when events expire
-  // subscribe and
-  //when catchig
-  //redirect to login pg or popup bring the log out button again
- // use toaster to send a nicer msg && redirect to login
+  addResponseMessage = (response) => {
+    return response;
+  }
+
+  componentDidMount() {
+    addResponseMessage("Welcome to the Sortim chat!");
+  }
+
+  handleNewUserMessage = (newMessage) => {
+    console.log(`New message incomig! ${newMessage}`);
+    // send the message through the backend API
+    //addResponseMessage(response);
+  }
+
   fetchEvents() {
 
       fetch(`https://graph.facebook.com/v2.10/me/events?fields=start_time,end_time,id,name,picture.type(large)&access_token=${this.props.authObj.accessToken}`)
@@ -53,8 +62,17 @@ class EventList extends Component {
         return <Event key={eventId} event={this.props.events[eventId]} />
       });
     return (
-      <div className="EventList">
-        {events}
+      <div>
+        <div className="EventList">
+          {events}
+        </div>
+        <div className="chat">
+          <Widget
+            handleNewUserMessage={this.handleNewUserMessage}
+            title="Sortim App"
+            subtitle="chat"
+          />
+        </div>
       </div>
     );
   }
