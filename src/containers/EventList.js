@@ -4,7 +4,7 @@ import { addEvents } from '../actions';
 import Event from '../components/Event.js';
 import { saveEvents } from '../Service';
 import { logOut } from '../actions';
-import { Widget, addResponseMessage } from 'react-chat-widget';
+
 
 
 
@@ -14,19 +14,6 @@ class EventList extends Component {
     this.fetchEvents()
   }
 
-  addResponseMessage = (response) => {
-    return response;
-  }
-
-  componentDidMount() {
-    addResponseMessage("Welcome to the Sortim chat!");
-  }
-
-  handleNewUserMessage = (newMessage) => {
-    console.log(`New message incomig! ${newMessage}`);
-    // send the message through the backend API
-    //addResponseMessage(response);
-  }
 
   fetchEvents() {
 
@@ -67,11 +54,6 @@ class EventList extends Component {
           {events}
         </div>
         <div className="chat">
-          <Widget
-            handleNewUserMessage={this.handleNewUserMessage}
-            title="Sortim App"
-            subtitle="chat"
-          />
         </div>
       </div>
     );

@@ -16,3 +16,8 @@ export const addOtherUsers = (otherUsers) => ({
   type: 'ADD_OTHER_USERS',
   otherUsers
 })
+
+export const getUsersList = (data) => ({
+  type: 'All_USERS',
+  data
+})

@@ -5,6 +5,23 @@ import { connect } from 'react-redux';
 import { addOtherUsers } from '../actions';
 import { getOtherUsers } from '../Service';
 import { sendInvite } from '../Service';
+import Chat from '../components/Chat.js';
+
+
+const mockData = [
+  {
+    author: 'Marc',
+    message: 'Wooo!',
+    date: Date.now(),
+    own: true,
+  },
+  {
+    author: 'Lindsey',
+    message: 'Yippie!',
+    date: Date.now(),
+    own: false,
+  },
+]
 
 class OtherUsersDeck extends Component {
 
@@ -12,6 +29,22 @@ class OtherUsersDeck extends Component {
     super(props);
     this.fetchOtherUsers();
     this.rendered = 0;
+
+  }
+
+  // componentDidMount() {
+  //   ReactDOM.findDOMNode(this).addEventListener('handle', this.handleMessages);
+  //   ReactDOM.findDOMNode(this).addEventListener('message', this.handleMessages);
+  // }
+
+  handleMessages = (messages) => {
+    this.setState({messages:messages});
+    console.log('msgs', messages);
+  }
+
+  sendMsg = (message) => {
+    //dispatch with sockets
+    console.log('sendmsg', message);
   }
 
 
@@ -44,10 +77,12 @@ class OtherUsersDeck extends Component {
     }
   }
 
+
   render() {
     this.rendered++
     const data = this.props.otherUsers;
     return (
+        <div>
         <Swing
           className="stack"
           tagName="div"
@@ -62,6 +97,12 @@ class OtherUsersDeck extends Component {
             </div>
           )}
         </Swing>
+        <Chat
+        
+          onSendMsg={this.sendMsg}
+          messages={mockData}
+         />
+        </div>
     )
   }
 }
