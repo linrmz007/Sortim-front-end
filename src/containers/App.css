@@ -141,3 +141,13 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
+
+/*///////////////////CHAT////////////////////////////////*/
+.chat__wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  width: 200px;
+  background-color: lime;
+  justify-content: flex-end;
+}

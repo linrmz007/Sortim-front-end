@@ -6,8 +6,11 @@ import { addOtherUsers } from '../actions';
 import { getOtherUsers } from '../Service';
 import { sendInvite } from '../Service';
 
-class OtherUsersDeck extends Component {
+import Chat from '../components/chat'
 
+const mockData = [{message:"hey LINDSEY", own:true, author: "me"},{message:"bye", own:false, author: "yomomma"},{message:"bye", own:false, author: "yopoppa"},{message:"bye", own:false, author: "yomomma"}]
+
+class OtherUsersDeck extends Component {
   constructor(props) {
     super(props);
     this.fetchOtherUsers();
@@ -48,6 +51,7 @@ class OtherUsersDeck extends Component {
     this.rendered++
     const data = this.props.otherUsers;
     return (
+      <div>
         <Swing
           className="stack"
           tagName="div"
@@ -62,6 +66,12 @@ class OtherUsersDeck extends Component {
             </div>
           )}
         </Swing>
+        <div>
+          <Chat
+            messages = {mockData}
+          />
+        </div>
+        </div>
     )
   }
 }
