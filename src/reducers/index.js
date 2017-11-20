@@ -28,11 +28,17 @@ const objectifyArray = (array, idKey = 'id') => {
 
 const entitiesDefaultState = {
   events: {},
-  otherUsers: []
+  otherUsers: [],
+  date: new Date()
 };
 
 const entitiesReducer = (state = entitiesDefaultState, action) => {
   switch (action.type) {
+    case 'SET_NEW_DATE':
+      return {
+        ...state,
+        date: action.data.time
+      }
     case 'ADD_EVENTS':
       return {
         ...state,

@@ -16,3 +16,13 @@ export const addOtherUsers = (otherUsers) => ({
   type: 'ADD_OTHER_USERS',
   otherUsers
 })
+
+export const sendMessage = (msg) => ({
+  type: 'SEND_MESSAGE',
+  socket: {
+    command: 'SEND_MESSAGE',
+    data: {
+      msg
+    }
+  }
+});

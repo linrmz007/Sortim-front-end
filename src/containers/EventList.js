@@ -29,7 +29,7 @@ class EventList extends Component {
   }
 
   fetchEvents() {
-
+      if (!this.props.authObj) return;
       fetch(`https://graph.facebook.com/v2.10/me/events?fields=start_time,end_time,id,name,picture.type(large)&access_token=${this.props.authObj.accessToken}`)
       .then(events => events.json())
       .then(events => {

@@ -12,7 +12,7 @@ const LoginRoute = (props) => {
   const { component: Component, ...rest } = props;
   return (
     <Route {...rest} render={ (props) => {
-      return ( rest.authObj === null
+      return ( rest.authObj === null || rest.authObj === undefined
         ? ( <Component {...rest} /> )
         : (
           <Redirect to={{

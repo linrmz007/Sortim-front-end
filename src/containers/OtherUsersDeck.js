@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Swing from 'react-swing';
 import { Direction } from 'swing';
 import { connect } from 'react-redux';
-import { addOtherUsers } from '../actions';
+import { addOtherUsers, sendMessage } from '../actions';
 import { getOtherUsers } from '../Service';
 import { sendInvite } from '../Service';
 
@@ -17,7 +17,6 @@ class OtherUsersDeck extends Component {
     this.rendered = 0;
   }
 
-
   fetchOtherUsers() {
     const eventId = this.props.computedMatch.params.eventId;
     getOtherUsers(eventId)
@@ -26,6 +25,10 @@ class OtherUsersDeck extends Component {
       return data.filter(el => el.email !== this.props.authObj.email)
     })
     .then(data => this.props.addOtherUsers(data))
+  }
+
+  sendMessage = (msg) => {
+    this.props.sendMessage(msg);
   }
 
   cardThrown = async (e) => {
@@ -52,6 +55,7 @@ class OtherUsersDeck extends Component {
     const data = this.props.otherUsers;
     return (
       <div>
+        <span>{this.props.date}</span>
         <Swing
           className="stack"
           tagName="div"
@@ -68,7 +72,8 @@ class OtherUsersDeck extends Component {
         </Swing>
         <div>
           <Chat
-            messages = {mockData}
+            messages={mockData}
+            onSendMessage={this.sendMessage}
           />
         </div>
         </div>
@@ -79,10 +84,12 @@ class OtherUsersDeck extends Component {
 const mapStateToProps = (state) => ({
   authObj: state.auth.authObj,
   otherUsers: state.entities.otherUsers,
+  date: state.entities.date
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addOtherUsers: (eventId) => dispatch(addOtherUsers(eventId))
+  addOtherUsers: (eventId) => dispatch(addOtherUsers(eventId)),
+  sendMessage: (msg) => dispatch(sendMessage(msg))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OtherUsersDeck);

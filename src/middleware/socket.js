@@ -5,13 +5,12 @@ import socketIOWildcard from 'socketio-wildcard';
 export default store => {
   let socket;
 
-  const connect = data => {
+  const connect = () => {
     socket = io('http://localhost:3001');
-    socketIOWildcard(io.Manager)(socket);
-    socket.emit('SOCKET__CONNECT', data);
     socket.on('ACTION', action => {
+      // console.log('RECEIVE ACTION!', action);
       store.dispatch(action);
-    })
+    });
   }
 
   const disconnect = data => {
@@ -19,5 +18,13 @@ export default store => {
     socket.disconnect();
   }
 
+  connect()
+
+  return next => action => {
+    // check if action is interesting to me
+    if (action.socket) {
+      socket.emit(action.socket.command, action.socket.data);
+    } else next(action);
+  }
 
 }

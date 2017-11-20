@@ -15,16 +15,16 @@ class Chat extends Component {
 
   handleMessages = () => {
     if(this.message.value === '') return;
-    console.log(this.message.value);
+    this.props.onSendMessage(this.message.value);
     this.message.value = '';
   }
 
   renderList() {
     if (this.props.messages === []) return null;
     const msgs = Object.keys(this.props.messages)
-    return msgs.map(msg => {
+    return msgs.map((msg, i) => {
       const msgObj = this.props.messages[msg];
-      return (<div>
+      return (<div key={i}>
         <li> Content: {msgObj.message}</li>
         <li>Author: {msgObj.author}</li>
         </div>
@@ -38,7 +38,8 @@ class Chat extends Component {
       <div className="chat__wrapper">
         <ul>{this.renderList()}</ul>
         <ul className="chat__messages"></ul>
-        <input ref={input => this.message = input} onKeyPress={this.captureMessageEnter} className="chat__input"/><button onClick={this.handleMessages} className="chat__button">Send</button>
+        <input ref={input => this.message = input} onKeyPress={this.captureMessageEnter} className="chat__input"/>
+        <button onClick={this.handleMessages} className="chat__button">Send</button>
       </div>
     );
   }

@@ -21,7 +21,7 @@ class Login extends Component {
         <h3 className="Welcome">Login to connect with people at Facebook events...</h3>
       </div>
         <FacebookLogin
-          appId="1653318524689223"
+          appId="890563677767277"
           autoLoad={false}
           fields="name,email,picture.type(large)"
           scope="public_profile,email,user_events"
