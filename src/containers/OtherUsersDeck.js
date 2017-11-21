@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Swing from 'react-swing';
 import { Direction } from 'swing';
 import { connect } from 'react-redux';
-import { addOtherUsers } from '../actions';
+import { addOtherUsers, sendMessage, socketConnect, getMessage } from '../actions';
 import { getOtherUsers } from '../Service';
 import { sendInvite } from '../Service';
 import Chat from '../components/Chat.js';
@@ -29,24 +29,13 @@ class OtherUsersDeck extends Component {
     super(props);
     this.fetchOtherUsers();
     this.rendered = 0;
-
+    console.log('these are props', this.props);
   }
 
-  // componentDidMount() {
-  //   ReactDOM.findDOMNode(this).addEventListener('handle', this.handleMessages);
-  //   ReactDOM.findDOMNode(this).addEventListener('message', this.handleMessages);
+  // handleMessages = (messages) => {
+  //   this.setState({messages:messages});
+  //   console.log('msgs HERE', messages);
   // }
-
-  handleMessages = (messages) => {
-    this.setState({messages:messages});
-    console.log('msgs', messages);
-  }
-
-  sendMsg = (message) => {
-    //dispatch with sockets
-    console.log('sendmsg', message);
-  }
-
 
   fetchOtherUsers() {
     const eventId = this.props.computedMatch.params.eventId;
@@ -58,10 +47,21 @@ class OtherUsersDeck extends Component {
     .then(data => this.props.addOtherUsers(data))
   }
 
+  sendMessage = (msg) => {
+    this.props.sendMessage(msg);
+    // console.log('sendmsg', msg);
+  }
+
+
   cardThrown = async (e) => {
     if(e.throwDirection === Direction.RIGHT){
       const eventId = this.props.computedMatch.params.eventId;
-      console.log(eventId);
+      // this.props.socketConnect({
+      //   id1:1,
+      //   id2:2,
+      //   eventId,
+      // });
+      this.props.getMessage(data);
       const data = {
         eventId: eventId,
         emails: {
@@ -70,7 +70,7 @@ class OtherUsersDeck extends Component {
         }
       }
       const invite = await sendInvite(data);
-      console.log(invite);
+      console.log('this is an invite',invite);
       if (invite === 'email sent') {
         console.log('an email has been sent to the other user');
       }
@@ -79,28 +79,32 @@ class OtherUsersDeck extends Component {
 
 
   render() {
+    console.log(this.props, 'here');
     this.rendered++
     const data = this.props.otherUsers;
     return (
         <div>
-        <Swing
-          className="stack"
-          tagName="div"
-          setStack={(stack)=> this.setState({stack:stack})}
-          ref="stack"
-          throwout={this.rendered === 1 ? this.cardThrown : null}
-        >
-          {data.map(item =>
-            <div id={item.email} key={item.name} className="Card">
-              <img draggable={false} src={item.img} className="CardImage" alt="profile-pic"/>
-              <h2>{item.name}</h2>
-            </div>
-          )}
-        </Swing>
+          <span>{this.props.date}</span>
+
+          <Swing
+            className="stack"
+            tagName="div"
+            setStack={(stack)=> this.setState({stack:stack})}
+            ref="stack"
+            throwout={this.rendered === 1 ? this.cardThrown : null}
+          >
+            {data.map(item =>
+              <div id={item.email} key={item.name} className="Card">
+                <img draggable={false} src={item.img} className="CardImage" alt="profile-pic"/>
+                <h2>{item.name}</h2>
+              </div>
+            )}
+          </Swing>
         <Chat
-        
-          onSendMsg={this.sendMsg}
-          messages={mockData}
+          messages={this.props.messages}
+          message={this.handleMessages}
+          sendMessage={this.sendMessage}
+          getMessage={this.getMessage}
          />
         </div>
     )
@@ -110,10 +114,15 @@ class OtherUsersDeck extends Component {
 const mapStateToProps = (state) => ({
   authObj: state.auth.authObj,
   otherUsers: state.entities.otherUsers,
+  date: state.entities.date,
+  messages: state.entities.messages
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addOtherUsers: (eventId) => dispatch(addOtherUsers(eventId))
+  addOtherUsers: (eventId) => dispatch(addOtherUsers(eventId)),
+  sendMessage: (msg) => dispatch(sendMessage(msg)),
+  socketConnect: (eventId) => dispatch(socketConnect(eventId)),
+  getMessage:(data) => dispatch(getMessage(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OtherUsersDeck);

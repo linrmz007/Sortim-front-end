@@ -21,3 +21,28 @@ export const getUsersList = (data) => ({
   type: 'All_USERS',
   data
 })
+
+export const socketConnect = (data) => ({
+  type: 'SOCKET__CONNECT',
+  data
+})
+
+export const sendMessage = (msg) => ({
+   type: 'SEND_MESSAGE',
+   socket: {
+     command: 'SEND_MESSAGE',
+     data: {
+       msg
+     }
+   }
+ });
+
+ export const getMessage = (msg) => ({
+    type: 'GET_MESSAGE',
+    socket: {
+      command: 'GET_MESSAGE',
+      data: {
+        msg
+      }
+    }
+  });

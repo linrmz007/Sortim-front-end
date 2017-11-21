@@ -147,3 +147,7 @@
   height:50%;
   width: 30%;
 }
+
+.chat-list{
+  list-style: none;
+}

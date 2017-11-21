@@ -4,17 +4,22 @@ import './index.css';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import { loadState, saveState } from './localStorage';
+import socketMiddleware from './middleware/socket'
 
 const persistedState = loadState();
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
-  reducer,
-  persistedState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+   reducer,
+   persistedState,
+  composeEnhancers(
+    applyMiddleware(socketMiddleware)
+  )
 );
 
 store.subscribe(() => {

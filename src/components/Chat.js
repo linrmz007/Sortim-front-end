@@ -7,38 +7,45 @@ class Chat extends Component {
     super(props);
   }
 
+  captureMessageEnter = (e) => {
+   if(e.key !== 'Enter') return;
+   this.handleMessages();
+ }
 
   handleMessages = (message) => {
-    console.log('msg', this.message.value);
+    if(this.message.value === '') return;
+    this.props.sendMessage(this.message.value);
+    this.message.value = '';
   }
 
 renderList(){
   if (this.props.messages === []) return null;
-    const msgs = Object.keys(this.props.messages)
-    return msgs.map(msg => {
+  console.log('msgs', this.props.messages);
+    const msgs = Object.keys(this.props.messages);
+    return msgs.map((msg, i) => {
       const msgObj = this.props.messages[msg];
-      return (<div>
-        <li> Content: {msgObj.message}</li>
-        <li>Author: {msgObj.author}</li>
+      if(msgObj)
+      return (<div key={i}>
+        <li className="msg-list">{msgObj.msg}</li>
         </div>
       )
     })
   }
 
   render() {
-    const message = this.props.sendMsg;
+
 
     return (
       <div className="sortim-chat">
         <h2>Sortim Chat</h2>
-        <ul>{this.renderList()}</ul>
+        <ul className='chat-list'>{this.renderList()}</ul>
           <div className="chat-window">
-            <div className="output" onSendMsg={this.handleMessages}><h5>Shit here</h5></div>
+            <div className="output"></div>
             <div className="feedback"></div>
           </div>
-            <input className="message" ref={input => this.message = input} type="text" placeholder="Message" />
+            <input ref={input => this.message = input} onKeyPress={this.captureMessageEnter} className="chat__input"/>
           <div>
-            <button className="send" onClick={this.handleMessages}>Send</button>
+          <button onClick={this.handleMessages} className="chat__button">Send</button>
           </div>
       </div>
     );

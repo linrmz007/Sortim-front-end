@@ -6,7 +6,7 @@ import { logOut } from '../actions';
 class NavBar extends Component {
 
   renderUserNav () {
-    if (this.props.authObj) {
+    if (this.props.authObj && this.props.authObj.picture) {
       return (
         <div className="UserNav">
           <FlatButton onClick={this.logOut} label="Log Out" primary={true} />
