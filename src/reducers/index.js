@@ -46,13 +46,13 @@ import { combineReducers } from 'redux'
      // console.log('sent action', action)
        return {
          ...state,
-         messages: [...state.messages, action.socket.data.msg]
+         messages: [...state.messages, action.socket.data]
        }
      case 'MESSAGE_RECEIVED':
      console.log('received action', action);
        return {
          ...state,
-         messages: [...state.messages, action]
+         messages: [...state.messages, action.data]
        }
       case 'ADD_EVENTS':
         return {

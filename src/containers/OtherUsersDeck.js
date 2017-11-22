@@ -75,7 +75,7 @@ class OtherUsersDeck extends Component {
         }
       }
 
-      // FIXME: make it work and uncomment 
+      // FIXME: make it work and uncomment
       // const invite = await sendInvite(data);
       // console.log('this is an invite',invite);
       // if (invite === 'email sent') {
@@ -90,7 +90,6 @@ class OtherUsersDeck extends Component {
     const data = this.props.otherUsers;
     return (
         <div>
-        <span>{this.props.date}</span>
           <Swing
             className="stack"
             tagName="div"
@@ -110,6 +109,7 @@ class OtherUsersDeck extends Component {
           message={this.handleMessages}
           sendMessage={this.sendMessage}
           getMessage={this.getMessage}
+          roomData={this.roomData}
          />
         </div>
     )

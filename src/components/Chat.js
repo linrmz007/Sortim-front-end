@@ -14,13 +14,13 @@ class Chat extends Component {
 
   handleMessages = (message) => {
     if(this.message.value === '') return;
+    console.log(this.props, 'string');
     this.props.sendMessage(this.message.value);
     this.message.value = '';
   }
 
 renderList(){
   if (this.props.messages === []) return null;
-  console.log('msgs', this.props.messages);
     const msgs = Object.keys(this.props.messages);
     return msgs.map((msg, i) => {
       const msgObj = this.props.messages[msg];
@@ -31,6 +31,17 @@ renderList(){
       )
     })
   }
+
+// renderList(){
+//   if (this.props.messages === []) return null;
+//     const msgs = this.props.messages;
+//     return msgs.map((msg, i) => {
+//       return (<div key={i}>
+//         <li className="msg-list">{msg}</li>
+//         </div>
+//       )
+//     })
+//   }
 
   render() {
 
