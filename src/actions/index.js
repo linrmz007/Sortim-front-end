@@ -27,11 +27,12 @@ export const socketConnect = (data) => ({
   data
 })
 
-export const sendMessage = (msg) => ({
+export const sendMessage = (room, msg) => ({
    type: 'SEND_MESSAGE',
    socket: {
      command: 'SEND_MESSAGE',
      data: {
+       room,
        msg
      }
    }

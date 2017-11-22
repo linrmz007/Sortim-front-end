@@ -47,8 +47,16 @@ class OtherUsersDeck extends Component {
     .then(data => this.props.addOtherUsers(data))
   }
 
+  roomData () {
+    return {
+      ourId: this.props.authObj.id,
+      theirId: this.props.otherUsers[0].id,
+      eventId: this.props.computedMatch.params.eventId,
+    }
+  }
+
   sendMessage = (msg) => {
-    this.props.sendMessage(msg);
+    this.props.sendMessage(this.roomData(),  msg);
     // console.log('sendmsg', msg);
   }
 
@@ -56,12 +64,8 @@ class OtherUsersDeck extends Component {
   cardThrown = async (e) => {
     if(e.throwDirection === Direction.RIGHT){
       const eventId = this.props.computedMatch.params.eventId;
-      // this.props.socketConnect({
-      //   id1:1,
-      //   id2:2,
-      //   eventId,
-      // });
-      this.props.getMessage(data);
+      this.props.socketConnect(this.roomData());
+      // this.props.getMessage(data);
       const data = {
         eventId: eventId,
         emails: {
@@ -76,7 +80,6 @@ class OtherUsersDeck extends Component {
       }
     }
   }
-
 
   render() {
     console.log(this.props, 'here');
@@ -120,8 +123,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addOtherUsers: (eventId) => dispatch(addOtherUsers(eventId)),
-  sendMessage: (msg) => dispatch(sendMessage(msg)),
-  socketConnect: (eventId) => dispatch(socketConnect(eventId)),
+  sendMessage: (room, msg) => dispatch(sendMessage(room, msg)),
+  socketConnect: (data) => dispatch(socketConnect(data)),
   getMessage:(data) => dispatch(getMessage(data))
 })
 
