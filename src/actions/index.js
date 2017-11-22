@@ -27,6 +27,12 @@ export const socketConnect = (data) => ({
   data
 })
 
+export const messageReceived = (data) => ({
+  type: 'MESSAGE_RECEIVED',
+  data
+})
+
+
 export const sendMessage = (room, msg) => ({
    type: 'SEND_MESSAGE',
    socket: {

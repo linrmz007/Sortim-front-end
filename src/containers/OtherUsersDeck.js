@@ -87,8 +87,6 @@ class OtherUsersDeck extends Component {
     const data = this.props.otherUsers;
     return (
         <div>
-          <span>{this.props.date}</span>
-
           <Swing
             className="stack"
             tagName="div"

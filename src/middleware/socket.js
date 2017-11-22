@@ -36,6 +36,10 @@ import io from 'socket.io-client';
         console.log('in get Messages');
         connect(action.data)
         break;
+      case 'MESSAGE_RECEIVED':
+        console.log('msg received from other user');
+        socket.emit('MESSAGE_RECEIVED', action.data);
+        break;
     }
 
     // check if action is interesting to me
