@@ -42,16 +42,17 @@ import { combineReducers } from 'redux'
          date: action.data.time
        }
      case 'SEND_MESSAGE':
-     console.log('action', action);
+     console.log(23);
+     // console.log('sent action', action)
        return {
          ...state,
-         messages: [...state.messages, action.message.msg]
+         messages: [...state.messages, action.socket.data.msg]
        }
-     case 'GET_MESSAGE':
-     console.log('getting message', action);
+     case 'MESSAGE_RECEIVED':
+     console.log('received action', action);
        return {
          ...state,
-         messages: [...state.messages, action.message.msg]
+         messages: [...state.messages, action]
        }
       case 'ADD_EVENTS':
         return {

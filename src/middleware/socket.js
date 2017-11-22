@@ -32,9 +32,8 @@ import io from 'socket.io-client';
         console.log('in middleware');
         socket.emit('SOCKET__CONNECT', action.data);
         break;
-      case 'GET_MESSAGE':
-        console.log('in get Messages');
-        connect(action.data)
+      case 'SEND_MESSAGE':
+        socket.emit('SEND_MESSAGE', action.socket.data.msg)
         break;
       case 'MESSAGE_RECEIVED':
         console.log('msg received from other user');
@@ -43,9 +42,10 @@ import io from 'socket.io-client';
     }
 
     // check if action is interesting to me
-    console.log('action-socket', action.socket);
+
       if (action.socket) {
         socket.emit(action.socket.command, action.socket.data);
-      } else next(action);
+      }
+      next(action);
     }
  }

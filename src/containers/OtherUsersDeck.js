@@ -42,6 +42,7 @@ class OtherUsersDeck extends Component {
     getOtherUsers(eventId)
     .then(data => data.json())
     .then(data => {
+      console.error(data);
       return data.filter(el => el.email !== this.props.authObj.email)
     })
     .then(data => this.props.addOtherUsers(data))
@@ -73,11 +74,13 @@ class OtherUsersDeck extends Component {
           otherUser: {email:e.target.id, name:e.target.key}
         }
       }
-      const invite = await sendInvite(data);
-      console.log('this is an invite',invite);
-      if (invite === 'email sent') {
-        console.log('an email has been sent to the other user');
-      }
+
+      // FIXME: make it work and uncomment 
+      // const invite = await sendInvite(data);
+      // console.log('this is an invite',invite);
+      // if (invite === 'email sent') {
+      //   console.log('an email has been sent to the other user');
+      // }
     }
   }
 
@@ -87,6 +90,7 @@ class OtherUsersDeck extends Component {
     const data = this.props.otherUsers;
     return (
         <div>
+        <span>{this.props.date}</span>
           <Swing
             className="stack"
             tagName="div"
