@@ -7,6 +7,9 @@ import Login from './Login';
 import EventList from './EventList';
 import OtherUsersDeck from './OtherUsersDeck';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import Modal from 'react-modal';
+import '../animate.css';
+
 
 const LoginRoute = (props) => {
   const { component: Component, ...rest } = props;

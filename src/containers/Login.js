@@ -16,6 +16,7 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
+      
       <div className="LoginText">
         <h2 className="Welcome">Welcome to <span>Sortim</span>!</h2>
         <h3 className="Welcome">Login to connect with people at Facebook events...</h3>

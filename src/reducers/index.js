@@ -34,6 +34,7 @@ import { combineReducers } from 'redux'
    messages: [],
   };
 
+
   const entitiesReducer = (state = entitiesDefaultState, action) => {
     switch (action.type) {
      case 'SET_NEW_DATE':

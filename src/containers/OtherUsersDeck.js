@@ -6,6 +6,8 @@ import { addOtherUsers, sendMessage, socketConnect, getMessage } from '../action
 import { getOtherUsers } from '../Service';
 import { sendInvite } from '../Service';
 import Chat from '../components/Chat.js';
+import NavBar from './NavBar';
+
 
 
 const mockData = [
@@ -29,7 +31,10 @@ class OtherUsersDeck extends Component {
     super(props);
     this.fetchOtherUsers();
     this.rendered = 0;
-    console.log('these are props', this.props);
+    this.state = {
+        showChat:false,
+    }
+
   }
 
   // handleMessages = (messages) => {
@@ -67,6 +72,11 @@ class OtherUsersDeck extends Component {
       const eventId = this.props.computedMatch.params.eventId;
       this.props.socketConnect(this.roomData());
       // this.props.getMessage(data);
+
+      this.setState({
+        showChat:true,
+      })
+
       const data = {
         eventId: eventId,
         emails: {
@@ -88,7 +98,11 @@ class OtherUsersDeck extends Component {
     console.log(this.props, 'here');
     this.rendered++
     const data = this.props.otherUsers;
+
+    const { showChat } = this.state;
+
     return (
+      <div>
         <div>
           <Swing
             className="stack"
@@ -104,13 +118,19 @@ class OtherUsersDeck extends Component {
               </div>
             )}
           </Swing>
-        <Chat
-          messages={this.props.messages}
-          message={this.handleMessages}
-          sendMessage={this.sendMessage}
-          getMessage={this.getMessage}
-          roomData={this.roomData}
-         />
+          {
+            showChat && (
+              <Chat
+              messages={this.props.messages}
+              message={this.handleMessages}
+              sendMessage={this.sendMessage}
+              getMessage={this.getMessage}
+              roomData={this.roomData}
+              myId={this.props.authObj.id}
+              />
+            )
+          }
+        </div>
         </div>
     )
   }
